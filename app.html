@@ -3,105 +3,164 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>GearFlow — Painel de Gestão & PDV</title>
+  <title>GearFlow — Estoque Inteligente & PDV</title>
   <link rel="stylesheet" href="assets/css/style.css" />
 </head>
 <body class="app-body">
   <div class="app-layout">
+    <!-- Sidebar idêntica ao Slide 08 -->
     <aside class="sidebar">
       <div class="sidebar-brand">
-        <div class="brand-badge">GF</div>
+        <div class="brand-logo-box">❖</div>
         <div>
-          <strong>GearFlow</strong>
-          <span>Automotive OS</span>
+          <strong class="brand-title">Gear<span class="text-orange">Flow</span></strong>
+          <span class="brand-sub">Estoque inteligente</span>
         </div>
       </div>
 
       <nav class="sidebar-nav">
         <button class="nav-item active" data-tab="dashboard" data-admin-only="true" onclick="switchTab('dashboard')">
-          <span>📊</span> Dashboard Geral
+          <span class="nav-icon">🏠</span> Dashboard
         </button>
         <button class="nav-item" data-tab="pdv" onclick="switchTab('pdv')">
-          <span>🛒</span> Catálogo & PDV
-        </button>
-        <button class="nav-item" data-tab="sales" onclick="switchTab('sales')">
-          <span>📦</span> Histórico de Pedidos
+          <span class="nav-icon">🛒</span> PDV / Vendas
         </button>
         <button class="nav-item" data-tab="products" data-admin-only="true" onclick="switchTab('products')">
-          <span>🔧</span> Produtos & Estoque
+          <span class="nav-icon">📦</span> Estoque
+        </button>
+        <button class="nav-item" data-tab="sales" onclick="switchTab('sales')">
+          <span class="nav-icon">📊</span> Relatórios
         </button>
         <button class="nav-item" data-tab="coupons" data-admin-only="true" onclick="switchTab('coupons')">
-          <span>🎟️</span> Cupons & Promoções
+          <span class="nav-icon">🎟️</span> Cupons
         </button>
       </nav>
 
       <div class="sidebar-footer">
-        <div class="user-card">
-          <strong id="userName">Carregando...</strong>
-          <span id="userRole" class="role-badge">perfil</span>
+        <div class="user-pill">
+          <div class="user-avatar">👤</div>
+          <div class="user-info">
+            <strong id="userName">Admin</strong>
+            <span id="userRole">admin</span>
+          </div>
         </div>
-        <button class="btn btn-outline btn-full" onclick="logout()">Sair do Sistema</button>
+        <button class="btn-logout" onclick="logout()">↪ Sair</button>
       </div>
     </aside>
 
+    <!-- Área Principal -->
     <main class="main-content">
       <header class="topbar">
         <div>
-          <h1 id="pageTitle">Dashboard Geral</h1>
-          <p class="subtitle">Gestão integrada de peças, estoque e vendas em tempo real</p>
+          <h1 id="pageTitle">Dashboard</h1>
+          <p id="pageSubtitle" class="subtitle">Visão geral do seu negócio</p>
         </div>
-        <div id="appFeedback" class="feedback-bar"></div>
+        <div class="topbar-actions">
+          <div id="appFeedback" class="feedback-bar"></div>
+          <span class="badge-online">● Sistema Online</span>
+        </div>
       </header>
 
+      <!-- ABA 1: DASHBOARD (Igual ao Slide 08) -->
       <section id="tab-dashboard" class="tab-panel active" data-admin-only="true">
         <div class="kpi-grid">
           <div class="kpi-card">
-            <span>Receita Total</span>
-            <strong id="kpiRevenue">R$ 0,00</strong>
+            <div class="kpi-icon blue">📦</div>
+            <div>
+              <span class="kpi-label">Produtos cadastrados</span>
+              <strong id="kpiStock" class="kpi-value">128</strong>
+            </div>
           </div>
           <div class="kpi-card">
-            <span>Pedidos Concluídos</span>
-            <strong id="kpiOrders">0</strong>
+            <div class="kpi-icon orange">⚠️</div>
+            <div>
+              <span class="kpi-label">Estoque baixo</span>
+              <strong id="kpiLowStock" class="kpi-value">8</strong>
+            </div>
           </div>
           <div class="kpi-card">
-            <span>Ticket Médio</span>
-            <strong id="kpiTicket">R$ 0,00</strong>
+            <div class="kpi-icon blue">🛒</div>
+            <div>
+              <span class="kpi-label">Vendas registradas</span>
+              <strong id="kpiOrders" class="kpi-value">46</strong>
+            </div>
           </div>
           <div class="kpi-card">
-            <span>Itens em Estoque</span>
-            <strong id="kpiStock">0</strong>
+            <div class="kpi-icon orange">\$</div>
+            <div>
+              <span class="kpi-label">Faturamento</span>
+              <strong id="kpiRevenue" class="kpi-value">R\$ 12.450,00</strong>
+            </div>
           </div>
         </div>
 
-        <div class="panel-grid-2">
+        <div class="dashboard-grid">
+          <!-- Gráfico de Rosca: Estoque por categoria -->
           <div class="card">
-            <h3>Desempenho por Categoria</h3>
-            <div id="categoryBars" class="bars-container"></div>
+            <h3>Estoque por categoria</h3>
+            <div class="donut-wrapper">
+              <div class="donut-chart">
+                <div class="donut-hole"></div>
+              </div>
+              <ul class="donut-legend">
+                <li><span class="dot blue"></span> Periféricos <strong>60%</strong></li>
+                <li><span class="dot orange"></span> Acessórios <strong>30%</strong></li>
+                <li><span class="dot cyan"></span> Componentes <strong>10%</strong></li>
+              </ul>
+            </div>
           </div>
+
+          <!-- Atividade recente -->
           <div class="card">
-            <h3>Alertas de Estoque Baixo</h3>
-            <div id="lowStockList" class="alert-list"></div>
+            <div class="card-header-row">
+              <h3>Atividade recente</h3>
+              <button class="link-btn" onclick="switchTab('sales')">Ver todas →</button>
+            </div>
+            <div id="recentActivityList" class="activity-list">
+              <div class="activity-item">
+                <div class="act-icon blue">🛒</div>
+                <div>
+                  <strong>Venda realizada</strong>
+                  <span>R\$ 249,90 • Hoje</span>
+                </div>
+              </div>
+              <div class="activity-item">
+                <div class="act-icon blue">📦</div>
+                <div>
+                  <strong>Produto adicionado</strong>
+                  <span>Mouse Gamer • Estoque atualizado</span>
+                </div>
+              </div>
+              <div class="activity-item">
+                <div class="act-icon orange">⚠️</div>
+                <div>
+                  <strong>Estoque baixo</strong>
+                  <span>Teclado Mecânico • Reposição recomendada</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
+      <!-- ABA 2: PDV / VENDAS (Igual ao Slide 08) -->
       <section id="tab-pdv" class="tab-panel">
         <div class="pdv-layout">
           <div class="card">
             <div class="card-header-row">
-              <h3>Catálogo de Autopeças</h3>
-              <input type="text" id="catalogSearch" placeholder="Buscar peça ou SKU..." oninput="renderCatalog()" />
+              <h3>Catálogo de Periféricos</h3>
+              <input type="text" id="catalogSearch" class="search-input" placeholder="🔍 Buscar produto..." oninput="renderCatalog()" />
             </div>
             <div id="catalogGrid" class="catalog-grid"></div>
           </div>
 
           <div class="card cart-card">
-            <h3>Carrinho / Checkout</h3>
+            <h3>🛒 Carrinho de compras</h3>
             <div id="cartItems" class="cart-list"></div>
 
             <div class="coupon-box">
               <input type="text" id="couponInput" placeholder="Cupom (ex: GEAR10)" />
-              <button class="btn btn-secondary" onclick="applyCouponCode()">Aplicar</button>
+              <button class="btn-secondary" onclick="applyCouponCode()">Aplicar</button>
             </div>
 
             <div class="form-group">
@@ -109,147 +168,175 @@
               <select id="paymentMethod">
                 <option value="PIX">PIX (Aprovação Imediata)</option>
                 <option value="Cartão de Crédito">Cartão de Crédito</option>
-                <option value="Boleto Faturado">Boleto Faturado</option>
+                <option value="Dinheiro">Dinheiro</option>
               </select>
             </div>
 
             <div class="form-group">
-              <label for="deliveryAddress">Endereço / Retirada</label>
-              <input type="text" id="deliveryAddress" placeholder="Endereço de entrega" />
+              <label for="deliveryAddress">CPF / Cliente (opcional)</label>
+              <input type="text" id="deliveryAddress" placeholder="000.000.000-00 ou Balcão" />
             </div>
 
             <div class="cart-totals">
-              <div><span>Subtotal:</span><strong id="cartSubtotal">R$ 0,00</strong></div>
-              <div><span>Desconto:</span><strong id="cartDiscount" class="text-cyan">- R$ 0,00</strong></div>
-              <div class="total-final"><span>Total:</span><strong id="cartTotal">R$ 0,00</strong></div>
+              <div><span>Subtotal:</span><strong id="cartSubtotal">R\$ 0,00</strong></div>
+              <div><span>Desconto (10%):</span><strong id="cartDiscount" class="text-orange">- R\$ 0,00</strong></div>
+              <div class="total-final"><span>Total:</span><strong id="cartTotal">R\$ 0,00</strong></div>
             </div>
 
-            <button class="btn btn-primary btn-full" onclick="checkout()">Finalizar Pedido</button>
+            <button class="btn-orange btn-full" onclick="checkout()">🛒 Finalizar venda</button>
           </div>
         </div>
       </section>
 
-      <section id="tab-sales" class="tab-panel">
+      <!-- ABA 3: CONTROLE DE ESTOQUE (Igual ao Slide 08) -->
+      <section id="tab-products" class="tab-panel" data-admin-only="true">
+        <div class="card mb-20">
+          <h3>+ Adicionar novo produto ao estoque</h3>
+          <form id="productForm" class="inline-form" onsubmit="handleCreateProduct(event)">
+            <input type="text" id="prodName" required placeholder="Produto (ex: Mouse Gamer)" />
+            <input type="text" id="prodSku" required placeholder="SKU (ex: M001)" />
+            <select id="prodCategory">
+              <option value="Periféricos">Periféricos</option>
+              <option value="Acessórios">Acessórios</option>
+              <option value="Componentes">Componentes</option>
+            </select>
+            <input type="number" step="0.01" id="prodPrice" required placeholder="Preço (R\$)" />
+            <input type="number" id="prodStock" required placeholder="Qtd" />
+            <button type="submit" class="btn-orange">+ Adicionar produto</button>
+          </form>
+        </div>
+
         <div class="card">
-          <h3>Pedidos Registrados</h3>
+          <div class="card-header-row">
+            <h3>Controle de estoque</h3>
+          </div>
           <div class="table-wrap">
             <table>
               <thead>
                 <tr>
-                  <th>Pedido</th>
-                  <th>Cliente</th>
-                  <th>Itens</th>
-                  <th>Pagamento</th>
-                  <th>Total</th>
-                  <th>Status</th>
+                  <th>SKU</th>
+                  <th>Produto</th>
+                  <th>Categoria</th>
+                  <th>Preço</th>
+                  <th>Quantidade</th>
+                  <th>Status / Ações</th>
                 </tr>
               </thead>
-              <tbody id="salesTableBody"></tbody>
+              <tbody id="productsTableBody"></tbody>
             </table>
           </div>
         </div>
       </section>
 
-      <section id="tab-products" class="tab-panel" data-admin-only="true">
-        <div class="panel-grid-2">
-          <div class="card">
-            <h3>Cadastrar Nova Peça</h3>
-            <form id="productForm" onsubmit="handleCreateProduct(event)">
-              <div class="form-group">
-                <label>Nome da Peça</label>
-                <input type="text" id="prodName" required placeholder="Ex: Kit Embreagem Sachs" />
-              </div>
-              <div class="form-row">
-                <div class="form-group">
-                  <label>SKU</label>
-                  <input type="text" id="prodSku" required placeholder="GF-109" />
-                </div>
-                <div class="form-group">
-                  <label>Categoria</label>
-                  <select id="prodCategory">
-                    <option value="Motor">Motor</option>
-                    <option value="Freios">Freios</option>
-                    <option value="Suspensão">Suspensão</option>
-                    <option value="Elétrica">Elétrica</option>
-                    <option value="Lubrificantes">Lubrificantes</option>
-                  </select>
-                </div>
-              </div>
-              <div class="form-row">
-                <div class="form-group">
-                  <label>Preço (R$)</label>
-                  <input type="number" step="0.01" id="prodPrice" required placeholder="199.90" />
-                </div>
-                <div class="form-group">
-                  <label>Estoque Inicial</label>
-                  <input type="number" id="prodStock" required placeholder="15" />
-                </div>
-              </div>
-              <button type="submit" class="btn btn-primary btn-full">Salvar Produto</button>
-            </form>
-          </div>
+      <!-- ABA 4: RELATÓRIOS & HISTÓRICO (Igual ao Slide 08) -->
+      <section id="tab-sales" class="tab-panel">
+        <div class="kpi-grid mb-20">
+          <div class="kpi-card">
+            <div class="kpi-icon blue">🛒</div>
+            <div>
+              <span class="kpi-label">Total de Vendas</span>
+              <strong id="repRevenue" class="kpi-value">
+cat << 'EOF' >> assets/css/style.css
 
-          <div class="card">
-            <h3>Estoque Atual</h3>
-            <div class="table-wrap">
-              <table>
-                <thead>
-                  <tr>
-                    <th>SKU</th>
-                    <th>Produto</th>
-                    <th>Categoria</th>
-                    <th>Preço</th>
-                    <th>Estoque</th>
-                    <th>Ações</th>
-                  </tr>
-                </thead>
-                <tbody id="productsTableBody"></tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </section>
+/* === ESTILOS DO PAINEL GEARFLOW (IDENTIDADE VISUAL DO SLIDE 08) === */
+.app-body { background: #071120; color: #f8fafc; font-family: 'Inter', system-ui, sans-serif; margin: 0; }
+.app-layout { display: flex; min-height: 100vh; }
+.sidebar { width: 250px; background: #0a1628; border-right: 1px solid #1e293b; display: flex; flex-direction: column; padding: 24px 16px; }
+.sidebar-brand { display: flex; align-items: center; gap: 12px; padding: 0 8px 24px; border-bottom: 1px solid #1e293b; }
+.brand-logo-box { width: 38px; height: 38px; border-radius: 10px; background: linear-gradient(135deg, #2563eb, #ff6b00); display: grid; place-items: center; font-weight: 800; color: #fff; }
+.brand-title { font-size: 20px; display: block; color: #fff; }
+.text-orange { color: #ff6b00; }
+.text-green { color: #22c55e; }
+.brand-sub { font-size: 12px; color: #94a3b8; }
+.sidebar-nav { display: flex; flex-direction: column; gap: 8px; margin-top: 24px; flex: 1; }
+.nav-item { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 10px; background: transparent; border: none; color: #cbd5e1; font-size: 14px; font-weight: 500; cursor: pointer; text-align: left; transition: 0.2s; }
+.nav-item:hover { background: #13233d; color: #fff; }
+.nav-item.active { background: linear-gradient(90deg, rgba(37,99,235,0.28), rgba(255,107,0,0.12)); color: #fff; border: 1px solid rgba(59,130,246,0.4); }
+.sidebar-footer { border-top: 1px solid #1e293b; padding-top: 16px; display: flex; flex-direction: column; gap: 10px; }
+.user-pill { display: flex; align-items: center; gap: 10px; background: #0f2038; padding: 10px; border-radius: 10px; }
+.user-info strong { display: block; font-size: 14px; }
+.user-info span { font-size: 12px; color: #94a3b8; text-transform: uppercase; }
+.btn-logout { width: 100%; padding: 10px; border-radius: 8px; background: #13233d; border: 1px solid #1e293b; color: #cbd5e1; cursor: pointer; }
+.btn-logout:hover { background: #1e293b; color: #fff; }
 
-      <section id="tab-coupons" class="tab-panel" data-admin-only="true">
-        <div class="panel-grid-2">
-          <div class="card">
-            <h3>Criar Cupom Promocional</h3>
-            <form id="couponForm" onsubmit="handleCreateCoupon(event)">
-              <div class="form-group">
-                <label>Código do Cupom</label>
-                <input type="text" id="newCouponCode" required placeholder="EX: OFICINA15" />
-              </div>
-              <div class="form-group">
-                <label>Desconto (%)</label>
-                <input type="number" min="1" max="90" id="newCouponDiscount" required placeholder="15" />
-              </div>
-              <button type="submit" class="btn btn-primary btn-full">Ativar Cupom</button>
-            </form>
-          </div>
+.main-content { flex: 1; padding: 28px 32px; overflow-y: auto; }
+.topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+.topbar h1 { font-size: 26px; margin: 0; }
+.subtitle { color: #94a3b8; font-size: 14px; margin: 4px 0 0; }
+.badge-online { background: rgba(34,197,94,0.15); color: #4ade80; padding: 6px 12px; border-radius: 999px; font-size: 12px; font-weight: 600; }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
 
-          <div class="card">
-            <h3>Cupons Ativos</h3>
-            <div class="table-wrap">
-              <table>
-                <thead>
-                  <tr>
-                    <th>Código</th>
-                    <th>Desconto</th>
-                    <th>Status</th>
-                    <th>Ação</th>
-                  </tr>
-                </thead>
-                <tbody id="couponsTableBody"></tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
-  </div>
+.kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-bottom: 22px; }
+.kpi-card { background: #0d1d35; border: 1px solid #1e3252; border-radius: 14px; padding: 18px 20px; display: flex; align-items: center; gap: 16px; }
+.kpi-icon { width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; font-size: 20px; font-weight: 700; }
+.kpi-icon.blue { background: rgba(37,99,235,0.2); color: #60a5fa; }
+.kpi-icon.orange { background: rgba(255,107,0,0.2); color: #fb923c; }
+.kpi-icon.green { background: rgba(34,197,94,0.2); color: #4ade80; }
+.kpi-label { display: block; font-size: 13px; color: #94a3b8; margin-bottom: 4px; }
+.kpi-value { font-size: 22px; font-weight: 700; color: #fff; }
 
-  <script src="assets/js/storage.js"></script>
-  <script src="assets/js/auth.js"></script>
-  <script src="assets/js/app.js"></script>
-</body>
-</html>
+.dashboard-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.card { background: #0d1d35; border: 1px solid #1e3252; border-radius: 14px; padding: 22px; }
+.card h3 { margin: 0 0 16px; font-size: 16px; color: #f1f5f9; }
+.card-header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; gap: 12px; }
+.card-header-row h3 { margin: 0; }
+.mb-20 { margin-bottom: 20px; }
+
+/* Donut Chart CSS */
+.donut-wrapper { display: flex; align-items: center; justify-content: space-around; padding: 12px 0; }
+.donut-chart { width: 140px; height: 140px; border-radius: 50%; background: conic-gradient(#2563eb 0% 60%, #ff6b00 60% 90%, #38bdf8 90% 100%); display: grid; place-items: center; }
+.donut-hole { width: 84px; height: 84px; border-radius: 50%; background: #0d1d35; }
+.donut-legend { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px; font-size: 14px; }
+.donut-legend li { display: flex; align-items: center; gap: 10px; color: #cbd5e1; }
+.dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+.dot.blue { background: #2563eb; }
+.dot.orange { background: #ff6b00; }
+.dot.cyan { background: #38bdf8; }
+
+/* Atividade Recente */
+.activity-list { display: flex; flex-direction: column; gap: 14px; }
+.activity-item { display: flex; align-items: center; gap: 14px; padding: 10px 12px; background: #091527; border-radius: 10px; border: 1px solid #172a46; }
+.act-icon { width: 36px; height: 36px; border-radius: 10px; display: grid; place-items: center; }
+.act-icon.blue { background: rgba(37,99,235,0.2); }
+.act-icon.orange { background: rgba(255,107,0,0.2); }
+.activity-item strong { display: block; font-size: 14px; }
+.activity-item span { font-size: 12px; color: #94a3b8; }
+.link-btn { background: none; border: none; color: #60a5fa; cursor: pointer; font-size: 13px; }
+
+/* PDV e Catálogo */
+.pdv-layout { display: grid; grid-template-columns: 1.7fr 1fr; gap: 20px; }
+.catalog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.product-card, .catalog-item { background: #091527; border: 1px solid #1e3252; border-radius: 12px; padding: 14px; display: flex; flex-direction: column; justify-content: space-between; gap: 10px; }
+.product-card h4, .catalog-item h4 { margin: 0; font-size: 15px; color: #fff; }
+.search-input, input, select { background: #091527; border: 1px solid #1e3252; color: #fff; padding: 10px 12px; border-radius: 8px; font-size: 14px; width: 100%; box-sizing: border-box; }
+.search-input { max-width: 260px; }
+.coupon-box { display: flex; gap: 8px; margin: 14px 0; }
+.form-group { margin-bottom: 12px; }
+.form-group label { display: block; font-size: 12px; color: #94a3b8; margin-bottom: 6px; }
+.cart-totals { border-top: 1px solid #1e3252; padding-top: 12px; margin: 14px 0; display: flex; flex-direction: column; gap: 8px; font-size: 14px; }
+.cart-totals div { display: flex; justify-content: space-between; }
+.total-final { font-size: 18px; color: #fff; border-top: 1px solid #1e3252; padding-top: 8px; }
+
+.btn-orange { background: #ff6b00; color: #fff; border: none; padding: 12px 18px; border-radius: 10px; font-weight: 600; cursor: pointer; transition: 0.2s; }
+.btn-orange:hover { background: #e66000; }
+.btn-secondary { background: #1e3252; color: #fff; border: none; padding: 10px 14px; border-radius: 8px; cursor: pointer; }
+.btn-full { width: 100%; }
+.inline-form { display: grid; grid-template-columns: 2fr 1fr 1.2fr 1fr 0.8fr auto; gap: 10px; }
+
+/* Tabelas & Gráficos de Relatórios */
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th, td { padding: 12px 14px; text-align: left; border-bottom: 1px solid #1e3252; }
+th { color: #94a3b8; font-weight: 600; font-size: 12px; text-transform: uppercase; }
+.bar-chart { display: flex; align-items: flex-end; justify-content: space-between; height: 160px; padding-top: 20px; gap: 12px; }
+.bar-col { flex: 1; display: flex; flex-direction: column; align-items: center; height: 100%; justify-content: flex-end; gap: 8px; }
+.bar { width: 100%; max-width: 34px; background: #2563eb; border-radius: 6px 6px 0 0; }
+.bar.active { background: #ff6b00; }
+.bar-col span { font-size: 12px; color: #94a3b8; }
+.progress-list { display: flex; flex-direction: column; gap: 16px; }
+.prog-head { display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 6px; }
+.prog-track { height: 10px; background: #091527; border-radius: 999px; overflow: hidden; }
+.prog-fill { height: 100%; border-radius: 999px; }
+.prog-fill.orange { background: #ff6b00; }
+.prog-fill.blue { background: #2563eb; }
