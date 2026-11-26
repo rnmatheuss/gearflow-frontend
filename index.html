@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GearFlow PDV</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- LOGIN -->
+<section id="login">
+  <form class="lbox" onsubmit="login(event)">
+    <div class="brand big">⚙ Gear<span>Flow</span> PDV</div>
+    <p class="muted">Gestão comercial e frente de caixa para lojas de informática.</p>
+    <label>Usuário<input id="lu" autocomplete="username" required></label>
+    <label>Senha<input id="lp" type="password" autocomplete="current-password" required></label>
+    <p id="lerr" class="err"></p>
+    <button class="btn full">Entrar</button>
+    <div class="demo">
+      <small>Contas de demonstração (clique para preencher):</small>
+      <div class="row">
+        <button type="button" class="btn sm ghost" onclick="fill('admin','admin123')">Administrador</button>
+        <button type="button" class="btn sm ghost" onclick="fill('vendedor','vend123')">Vendedor</button>
+        <button type="button" class="btn sm ghost" onclick="fill('cliente','cli123')">Cliente</button>
+      </div>
+      <button type="button" class="link" onclick="resetDemo()">Restaurar dados de demonstração</button>
+    </div>
+  </form>
+</section>
+
+<!-- APLICAÇÃO -->
+<div id="app" hidden>
+  <aside id="side"></aside>
+  <div class="content">
+    <header class="top">
+      <button class="burger" onclick="document.getElementById('side').classList.toggle('open')">☰</button>
+      <span id="who"></span>
+    </header>
+    <main id="main"></main>
+  </div>
+</div>
+
+<dialog id="dlg">
+  <h3 id="dt"></h3>
+  <form id="df"></form>
+</dialog>
+<div id="toast"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
