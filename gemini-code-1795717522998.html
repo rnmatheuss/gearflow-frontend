@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GearFlow — Criar Conta</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+  <div class="auth-split">
+    <section class="auth-hero">
+      <div class="brand-logo">
+        <div class="gear-icon">⚙</div>
+        <span>Gear<strong>Flow</strong></span>
+      </div>
+
+      <div class="auth-hero-content">
+        <h1>Comece agora no <span>GearFlow</span>.</h1>
+        <p>
+          Crie sua conta como cliente para realizar pedidos com cupons de desconto ou solicite acesso de vendedor.
+        </p>
+      </div>
+
+      <small style="color: var(--text-muted);">GearFlow • Plataforma de Gestão</small>
+    </section>
+
+    <section class="auth-panel">
+      <div class="auth-card">
+        <h2>Criar conta</h2>
+        <p class="subtitle">Preencha os dados abaixo para se cadastrar.</p>
+
+        <form id="registerForm" class="form-stack">
+          <div class="field">
+            <label>Nome completo</label>
+            <input type="text" name="name" required placeholder="Ex.: Davi Nogueira" />
+          </div>
+
+          <div class="field">
+            <label>E-mail</label>
+            <input type="email" name="email" required placeholder="seu@email.com" />
+          </div>
+
+          <div class="row-inline">
+            <div class="field" style="flex:1;">
+              <label>CPF</label>
+              <input type="text" name="cpf" required placeholder="000.000.000-00" />
+            </div>
+            <div class="field" style="flex:1;">
+              <label>Telefone</label>
+              <input type="text" name="phone" required placeholder="(85) 99999-9999" />
+            </div>
+          </div>
+
+          <div class="field">
+            <label>Tipo de conta</label>
+            <select name="role" required>
+              <option value="cliente">Cliente</option>
+              <option value="vendedor">Vendedor</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label>Senha (mín. 6 caracteres)</label>
+            <input type="password" name="password" minlength="6" required placeholder="••••••" />
+          </div>
+
+          <button type="submit" class="btn btn-orange" style="width: 100%;">Cadastrar</button>
+          <p id="registerMsg" class="feedback-bar" role="alert"></p>
+        </form>
+
+        <p class="auth-footer">
+          Já possui conta? <a href="index.html">Voltar ao login</a>
+        </p>
+      </div>
+    </section>
+  </div>
+
+  <script src="assets/js/storage.js"></script>
+  <script src="assets/js/auth.js"></script>
+</body>
+</html>

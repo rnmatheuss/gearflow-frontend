@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GearFlow — Controle seu negócio</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+  <div class="auth-split">
+    <section class="auth-hero">
+      <div class="brand-logo">
+        <div class="gear-icon">⚙</div>
+        <span>Gear<strong>Flow</strong></span>
+      </div>
+
+      <div class="auth-hero-content">
+        <h1>Controle seu negócio.<br /><span>Venda com confiança.</span></h1>
+        <p>
+          Estoque, vendas, PDV, cupons e relatórios financeiros integrados em um só lugar.
+        </p>
+        <div class="hero-badges">
+          <span class="hero-badge">⚡ PDV Rápido</span>
+          <span class="hero-badge">📦 Gestão de Estoque</span>
+          <span class="hero-badge">📊 Relatórios em Tempo Real</span>
+        </div>
+      </div>
+
+      <small style="color: var(--text-muted);">GearFlow • Sistema de Gestão Comercial & Periféricos</small>
+    </section>
+
+    <section class="auth-panel">
+      <div class="auth-card">
+        <h2>Bem-vindo!</h2>
+        <p class="subtitle">Acesse sua conta para gerenciar produtos, pedidos ou compras.</p>
+
+        <form id="loginForm" class="form-stack">
+          <div class="field">
+            <label for="email">E-mail</label>
+            <input type="email" id="email" name="email" required placeholder="admin@gearflow.com" />
+          </div>
+
+          <div class="field">
+            <label for="password">Senha</label>
+            <input type="password" id="password" name="password" required placeholder="••••••••" />
+          </div>
+
+          <button type="submit" class="btn btn-orange" style="width: 100%; margin-top: 6px;">
+            Entrar no Sistema
+          </button>
+          <p id="loginMsg" class="feedback-bar" role="alert"></p>
+        </form>
+
+        <div class="demo-box">
+          <strong>Contas de demonstração (senha: 123456):</strong>
+          <ul>
+            <li><code>admin@gearflow.com</code> (Acesso total + Dashboard)</li>
+            <li><code>vendedor@gearflow.com</code> (PDV e Pedidos)</li>
+            <li><code>cliente@gearflow.com</code> (Loja e Carrinho)</li>
+          </ul>
+        </div>
+
+        <p class="auth-footer">
+          Não tem conta? <a href="cadastro.html">Criar cadastro</a>
+        </p>
+      </div>
+    </section>
+  </div>
+
+  <script src="assets/js/storage.js"></script>
+  <script src="assets/js/auth.js"></script>
+</body>
+</html>
